@@ -25,6 +25,7 @@ jobs:
       - uses: actions/checkout@v3      
       - name: API Publish using GITHUB_TOKEN
         run: |
+          pwd
           curl --request POST \
           --url https://api.github.com/repos/${{ github.repository }}/actions/package?release_id=80312511 \
           --header 'authorization: Bearer ${{ github.token }}' \
