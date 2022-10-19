@@ -22,21 +22,12 @@ jobs:
   updateSubClaim:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Create archive
-        run: |
-          wdir=$(pwd)
-          echo ${wdir}
-          mkdir -p /tmp
-          tar -czvf /tmp/release.tar.gz .             
-      - name: verify
-        run: |          
-          ls -ltr /tmp | grep tar.gz      
+      - uses: actions/checkout@v3      
       - name: API Publish using GITHUB_TOKEN
         run: |
           curl --request POST \
           --url https://api.github.com/repos/${{ github.repository }}/actions/package?release_id=80312511 \
           --header 'authorization: Bearer ${{ github.token }}' \
           --header 'content-type: application/octet-stream' \          
-          --data-binary "@/tmp/release.tar.gz" \
+          --data-binary "@./hello-world-javascript-action-1.1.tar.gz" \
           --fail
